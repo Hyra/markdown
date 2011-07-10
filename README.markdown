@@ -20,7 +20,8 @@ The simplest way to test if everything is working is by passing some markdown to
 
 In your controller, make a EOF variable containing something like:
 
-	Markdown allows you to write text in a easy-to-read and easy-to-write plain text format, and Markdown will convert it to structurally valid XHTML (or HTML).
+	Markdown allows you to write text in a easy-to-read and easy-to-write plain text format,
+	and Markdown will convert it to structurally valid XHTML (or HTML).
 
 	You can easily make text **bold** or **italic**  
 	Use [Some link](http://www.example.com/ "Example")  
