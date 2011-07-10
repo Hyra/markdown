@@ -12,7 +12,7 @@ Another useful option is using it within a CMS. Instead of having bloated HTML i
 
 - Clone the files from the repos into `app/plugins/markdown`
 - Include the Helper in the controllers you want to use it with, or in `app_controller.php`:
-	- `var $components = array('Markdown.Markdown')`
+	- `var $helpers = array('Markdown.Markdown')`
 
 ## Using Markdown
 
