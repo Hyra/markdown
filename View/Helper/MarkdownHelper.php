@@ -21,7 +21,7 @@
  *
  */
  
-App::import('Vendor', 'Markdown.markdown', array('file' => 'markdown.php'));
+App::import( 'Vendor', 'Markdown.markdown' );
 
 class MarkdownHelper extends AppHelper {
 	
@@ -61,24 +61,50 @@ class MarkdownHelper extends AppHelper {
 		if ( isset($this->_View->viewVars['Markdown']) && $this->_View->viewVars['Markdown'] == true ) $doRender = true;
 		
 		if ( $doRender ) {
-			$this->_View->__set( 'output', $this->parse($this->_View->__get('output')) );
+			$this->_View->__set( 'output', $this->render($this->_View->__get('output')) );
 		}
 		
 	}
 	
+	/**
+	 * Accessor method to activate or deactivate auto render utility
+	 */
 	public function auto( $auto = true ) {
 		
 		$this->auto = $auto;
 		
 	}
 	
+	/**
+	 * Render element and parse it as Markdown source
+	 */
+	public function element($name, $data = array(), $options = array()) {
+		
+		return $this->render( $this->_View->element($name,$data,$options) );
+		
+	}
+	
+	/**
+	 * Fetch a view block and parse it as Markdown source
+	 */
+	public function fetch( $name ) {
+		
+		return $this->render( $this->_View->fetch($name) );
+		
+	}
 	
 	/**
 	 * Utility to parse a Markdown source string
+	 * $data array is for the future.
+	 *
+	 * I plan to implement some utility syntax to access variables from view's scope
+	 * or $data scope but I still tinking about it.
 	 */
-	public function parse( $str ) {
+	public function render( $str, $data = array() ) {
 		
-		return Markdown($str);
+		$output = Markdown($str);
+		
+		return $output;
 		
 	}
 		
