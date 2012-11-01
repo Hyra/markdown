@@ -35,7 +35,7 @@ class MarkdownHelper extends AppHelper {
 		
 		// Understand a first boolean param from:
 		// $helpers = array( 'Markdown.Markdown'=>true )
-		if ( count($settings) === 1 && is_bool($settings[0]) ) $settings = array( 'auto'=>$settings[0] );
+		if ( count($settings) === 1 && isset($settings[0]) && is_bool($settings[0]) ) $settings = array( 'auto'=>$settings[0] );
 		
 		parent::__construct($view, $settings);
 		
