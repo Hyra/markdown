@@ -83,13 +83,21 @@ class MarkdownView extends View {
 	 * 
 	 * values are searched into viewVars
 	 * 
-	 * This is a complely "work in progress" 
+	 * CakePHP events allow external components to extend parser capabilities!
 	 * 
 	 */
 	protected function markdownParseViewVars( $string ) {
 		
-		// Apply PowerString::tpl() magic method
-		if ( class_exists('PowerString') ) return PowerString::tpl( $rendered, $this->viewVars );
+		// -- evt --
+		$this->getEventManager()->dispatch($e = new CakeEvent('Markdown.beforeParseViewVars',$this,array(
+			'string' => $string
+		)));
+		
+		if ( !empty($e->result['string']) ) $string = $e->result['string'];
+		// -- evt --
+		
+		
+		
 		
 		// Apply a simple placeholder replacement from viewVars
 		$string = String::insert( $string, Set::flatten($this->viewVars), array(
@@ -98,6 +106,17 @@ class MarkdownView extends View {
 			'before'	=> '{',
 			'after'		=> '}'
 		));
+		
+		
+		
+		
+		// -- evt --
+		$this->getEventManager()->dispatch($e = new CakeEvent('Markdown.afterParseViewVars',$this,array(
+			'string' => $string
+		)));
+		
+		if ( !empty($e->result['string']) ) $string = $e->result['string'];
+		// -- evt --
 		
 		return $string;
 		
