@@ -100,7 +100,7 @@ class MarkdownView extends View {
 		
 		
 		// Apply a simple placeholder replacement from viewVars
-		$string = String::insert( $string, Set::flatten($this->viewVars), array(
+		$string = @String::insert( $string, Set::flatten($this->viewVars), array(
 			'clear'		=> true,
 			'clean'		=> false, 
 			'before'	=> '{',
