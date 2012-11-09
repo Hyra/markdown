@@ -24,7 +24,7 @@
  *     $this->preventMarkdown()
  *     
  *     // TestController.php
- *     $this->set( 'markdown', false );
+ *     $this->set( '_markdown', false );
  * 
  *
  * @author		@MovableApp
@@ -57,8 +57,7 @@ class MarkdownView extends View {
 		
 		// prevent to parse markdown
 		if ( $this->parseMarkdown === false ) return;
-		if ( isset($this->viewVars['markdown']) && $this->viewVars['markdown'] === false ) return;
-		if ( isset($this->viewVars['Markdown']) && $this->viewVars['Markdown'] === false ) return;
+		if ( isset($this->viewVars['_markdown']) && $this->viewVars['_markdown'] === false ) return;
 		
 		
 		// render markdown
@@ -100,7 +99,7 @@ class MarkdownView extends View {
 		
 		
 		// Apply a simple placeholder replacement from viewVars
-		$string = @String::insert( $string, Set::flatten($this->viewVars), array(
+		$string = String::insert( $string, Set::flatten( Set::reverse($this->viewVars) ), array(
 			'clear'		=> true,
 			'clean'		=> false, 
 			'before'	=> '{',
