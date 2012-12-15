@@ -102,12 +102,22 @@ class MarkdownHelper extends AppHelper {
 	 */
 	public function render( $str, $data = array() ) {
 		
-		$str = MarkdownUtils::parseViewVars( $this->_View, $str );
+		$str = MarkdownUtils::parseViewVars($this->_View, $str);
 		
 		$output = Markdown($str);
 		
 		return $output;
 		
+	}
+	
+	
+	public function __($key, $data=array()) {
+		$locale = APP . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MARKDOWN' . DS . $key . '.md';
+		if (!file_exists($locale)) {
+			return $key;
+		} else {
+			return $this->render(file_get_contents($locale),$data);
+		}
 	}
 	
 	
