@@ -66,6 +66,7 @@ class MarkdownHelper extends AppHelper {
 		
 	}
 	
+	
 	/**
 	 * Accessor method to activate or deactivate auto render utility
 	 */
