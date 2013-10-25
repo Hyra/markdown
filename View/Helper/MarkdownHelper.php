@@ -13,7 +13,7 @@
  * `public $helpers = array( 'Markdown.Markdown'=>true )`
  *
  * ### View Vars
- * `$this->set('markdown',true)` (from both controller and view)
+ * `$this->set('_markdown',true)` (from both controller and view)
  *
  * ### Helper utility
  * `$this->Markdown->auto()`
@@ -22,6 +22,7 @@
  */
  
 App::import( 'Vendor', 'Markdown.markdown' );
+App::import( 'Vendor', 'Markdown.MarkdownUtils' );
 
 class MarkdownHelper extends AppHelper {
 	
@@ -56,15 +57,15 @@ class MarkdownHelper extends AppHelper {
 		if ( $this->auto === true ) $doRender = true;
 		
 		// set render from controller or view:
-		// $this->set('markdown',true); 
-		if ( isset($this->_View->viewVars['markdown']) && $this->_View->viewVars['markdown'] == true ) $doRender = true;
-		if ( isset($this->_View->viewVars['Markdown']) && $this->_View->viewVars['Markdown'] == true ) $doRender = true;
+		// $this->set('_markdown',true); 
+		if ( isset($this->_View->viewVars['_markdown']) && $this->_View->viewVars['_markdown'] == true ) $doRender = true;
 		
 		if ( $doRender ) {
 			$this->_View->__set( 'output', $this->render($this->_View->__get('output')) );
 		}
 		
 	}
+	
 	
 	/**
 	 * Accessor method to activate or deactivate auto render utility
@@ -102,11 +103,26 @@ class MarkdownHelper extends AppHelper {
 	 */
 	public function render( $str, $data = array() ) {
 		
+		$str = MarkdownUtils::parseViewVars($this->_View, $str);
+		
 		$output = Markdown($str);
 		
 		return $output;
 		
 	}
+	
+	
+	public function __($key, $data=array()) {
+		$locale = APP . 'Locale' . DS . Configure::read('Config.language') . DS . 'LC_MARKDOWN' . DS . $key . '.md';
+		if (!file_exists($locale)) {
+			return $key;
+		} else {
+			return $this->render(file_get_contents($locale),$data);
+		}
+	}
+	
+	
+	
 		
 };
 

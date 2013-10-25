@@ -11,8 +11,10 @@ Another useful option is using it within a CMS. Instead of having bloated HTML i
 ## Installation
 
 - Clone the files from the repos into `app/Plugin/Markdown`
+- Load the plugin by adding the following into `app/Config/bootstrap.php`:
+	- `CakePlugin::load('Markdown');`
 - Include the Helper in the controllers you want to use it with, or in `AppController.php`:
-	- `var $helpers = array('Markdown.Markdown')`
+	- `public $helpers = array('Markdown.Markdown');`
 
 ## Using Markdown
 
