@@ -1,0 +1,23 @@
+{
+	"name": "hyra/markdown",
+	"type": "cakephp-plugin",
+	"description": "Markdown plugin for CakePHP.",
+	"homepage": "http://github.com/Hyra/markdown",
+	"keywords": ["cakephp", "markdown", "plugin"],
+	"license": "MIT",
+	"authors": [
+	{
+		"name": "Hyra",
+		"email": "",
+		"homepage": "http://github.com/Hyra/markdown"
+	}
+	],
+		"require": {
+			"php": ">=5.3.0",
+			"composer/installers": "*"
+		},
+		"extra": {
+			"installer-name": "Markdown"
+		}
+}
+
