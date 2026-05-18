@@ -1,47 +1,70 @@
 # CakePHP Markdown
 
-The Markdown plugin provides your CakePHP views with the ability to use Markdown instead of HTML.
+CakePHP Markdown is a lightweight plugin that lets you render Markdown content directly in your CakePHP views.
 
-## Purpose
+## Why use this plugin?
 
-Why use Markdown instead of HTML you ask? There's a few useful applications. For instance, at [Mind the Code](http://www.mindthecode.com/ "Mindthecode") I always write my Blog posts in Markdown while in bed or on the road. WHen I'm happy with what I wrote I just create a new entry in my blog database with the markdown text, and the Markdown plugin and some CSS do the rest. No need to go through the whole post and add `<br />`'s and `<h1>`'s
+Using Markdown instead of raw HTML makes content easier to write, read, and maintain.
 
-Another useful option is using it within a CMS. Instead of having bloated HTML in your database through one of the thousand WYSIWYG editors you can have your content-editors just write Markdown, and have plain and not-so-bloated content in your DB.
+Typical use cases:
+
+- **Blog posts:** write posts in plain text, store Markdown in your database, and render HTML on output.
+- **CMS content:** let editors work with clean, readable text instead of heavy WYSIWYG-generated HTML.
+- **Reusable content blocks:** keep content portable and version-friendly.
 
 ## Installation
 
-- Clone the files from the repos into `app/Plugin/Markdown`
-- Load the plugin by adding the following into `app/Config/bootstrap.php`:
-	- `CakePlugin::load('Markdown');`
-- Include the Helper in the controllers you want to use it with, or in `AppController.php`:
-	- `public $helpers = array('Markdown.Markdown');`
+1. Clone this repository into:
+   `app/Plugin/Markdown`
+2. Load the plugin in `app/Config/bootstrap.php`:
 
-## Using Markdown
+   ```php
+   CakePlugin::load('Markdown');
+   ```
 
-The simplest way to test if everything is working is by passing some markdown to your view. You can use the following example:
+3. Add the helper in the controllers where you need it (or globally in `AppController.php`):
 
-In your controller, make a EOF variable containing something like:
+   ```php
+   public $helpers = array('Markdown.Markdown');
+   ```
 
-	Markdown allows you to write text in a easy-to-read and easy-to-write plain text format,
-	and Markdown will convert it to structurally valid XHTML (or HTML).
+## Basic usage
 
-	You can easily make text **bold** or *italic*  
-	Use [Some link](http://www.example.com/ "Example")  
-	Use [Another link][] like so  
+A quick way to verify everything works is to pass Markdown text from your controller to a view.
 
-	And any other Markdown features, as shown on [Daring Fireball][]
+### Controller
 
-	  [Another link]: http://www.mindthecode.com/
-	  [Daring Fireball]: http://daringfireball.net/
+```php
+$plain = <<<EOF
+Markdown allows you to write text in an easy-to-read and easy-to-write plain text format,
+and Markdown will convert it to structurally valid XHTML (or HTML).
 
-And set this to a variable. For instance, `$plain` and assign it to the view:
+You can easily make text **bold** or *italic*  
+Use [Some link](http://www.example.com/ "Example")  
+Use [Another link][] like so  
 
-	$this->set(compact('plain'));
+And any other Markdown features, as shown on [Daring Fireball][]
 
-Then in your view, all you have to do is:
+  [Another link]: http://www.mindthecode.com/
+  [Daring Fireball]: http://daringfireball.net/
+EOF;
 
-	<?php echo Markdown($plain); ?>
+$this->set(compact('plain'));
+```
 
-And watch the magic :)
+### View
 
-For a full list of Markdown, please visit [DaringFireball.net](http://daringfireball.net/projects/markdown/)
+```php
+<?php echo Markdown($plain); ?>
+```
+
+## Notes
+
+- The plugin renders Markdown to HTML in your views.
+- You can style rendered output with your own CSS.
+
+## Markdown reference
+
+For the complete Markdown syntax, see:
+
+- <http://daringfireball.net/projects/markdown/>
